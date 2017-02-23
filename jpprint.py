@@ -1,5 +1,8 @@
 import json
-from itertools import zip_longest
+try:
+    from itertools import zip_longest
+except:
+    from itertools import izip_longest as zip_longest
 
 
 def formatter(data, indent):
