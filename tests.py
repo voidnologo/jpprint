@@ -1,3 +1,4 @@
+# NOTE: redirect_stdout requires python3.4+
 from contextlib import redirect_stdout
 from io import StringIO
 import json
