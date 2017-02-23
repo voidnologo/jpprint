@@ -1,0 +1,7 @@
+README.rst
+jpprint.py
+setup.py
+jpprint.egg-info/PKG-INFO
+jpprint.egg-info/SOURCES.txt
+jpprint.egg-info/dependency_links.txt
+jpprint.egg-info/top_level.txt
