@@ -6,6 +6,7 @@ except:
 
 
 def formatter(data, indent):
+    data = data.decode() if isinstance(data, bytes) else data
     try:
         return json.dumps(json.loads(data), indent=indent, sort_keys=True)
     except:

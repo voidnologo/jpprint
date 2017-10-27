@@ -86,6 +86,17 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_compare_byte_encoded_json_and_string_json(self):
+        a = b'{"a": "b"}'
+        b = '{"a": "b"}'
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    |         "a": "b"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out.getvalue())
+
     def test_expands_based_on_longest_file_length(self):
         a = {'a': 'b'}
         b = {'a': 'b', 'c': 'd'}
