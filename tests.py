@@ -97,6 +97,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_accepts_only_one_argument(self):
+        a = b'{"a": "b"}'
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a)
+        expected  = '{\n'
+        expected += '    "a": "b"\n'
+        expected += '}\n'
+        self.assertEqual(expected, out.getvalue())
+
     def test_expands_based_on_longest_file_length(self):
         a = {'a': 'b'}
         b = {'a': 'b', 'c': 'd'}
