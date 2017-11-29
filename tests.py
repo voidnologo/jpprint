@@ -102,9 +102,9 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a)
-        expected  = '{               <>     \n'
-        expected += '    "a": "b"    <>     \n'
-        expected += '}               <>     \n'
+        expected  = '{\n'
+        expected += '    "a": "b"\n'
+        expected += '}\n'
         self.assertEqual(expected, out.getvalue())
 
     def test_expands_based_on_longest_file_length(self):

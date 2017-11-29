@@ -19,7 +19,10 @@ def max_len(data):
 
 def jpprint(f1, f2=None, indent=4, separator='|', diff_ind='<>'):
     f1 = formatter(f1, indent)
-    f2 = formatter(f2, indent) if f2 else " "
+    if not f2:
+        print(f1)
+        return
+    f2 = formatter(f2, indent)
     l1width = max_len(f1)
     l2width = max_len(f2)
     for l1, l2 in zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '):
