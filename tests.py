@@ -1,5 +1,5 @@
-# NOTE: redirect_stdout requires python3.4+
-from contextlib import redirect_stdout
+import datetime
+from contextlib import redirect_stdout  # NOTE: redirect_stdout requires python3.4+
 from io import StringIO
 import json
 import unittest
@@ -122,6 +122,17 @@ class JPPrintTests(unittest.TestCase):
     def test_max_length_calculates_longest_line(self):
         a = json.dumps({'a': 'b', 'c': 'def', 'longest!': 'this is the longest!'}, indent=4, sort_keys=True)
         self.assertEqual(max_len(a), 38)
+
+    def test_accepts_datetime_objects(self):
+        a = {'datetime': datetime.datetime(2017, 12, 31)}
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a)
+        expected = '{\n'
+        expected += '    "datetime": "2017-12-31T00:00:00"\n'
+        expected += '}\n'
+        self.assertEqual(expected, out.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()

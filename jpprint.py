@@ -1,8 +1,18 @@
+import datetime
 import json
+
+
 try:
     from itertools import zip_longest
-except:
+except ImportError:
     from itertools import izip_longest as zip_longest
+
+
+def datetime_handler(*args):
+    if isinstance(args[1], datetime.datetime):
+        return args[1].isoformat()
+    raise TypeError('Unknown Type')
+json.JSONEncoder.default = datetime_handler
 
 
 def formatter(data, indent):
