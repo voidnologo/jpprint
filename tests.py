@@ -142,6 +142,18 @@ class JPPrintTests(unittest.TestCase):
         expected = '    "c": "d"     <>        "c": "not the same"\n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_truncates_line_to_max_width_if_line_is_longer_than_max(self):
+        a = '{"a": "1234567890", "b": "b"}'
+        b = '{"a": "0987654321", "b": "b"}'
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a, b, max_width=15)
+        expected  = '{                  |     {              \n'
+        expected += '    "a": "12...    <>        "a": "09...\n'
+        expected += '    "b": "b"       |         "b": "b"   \n'
+        expected += '}                  |     }              \n'
+        self.assertEqual(expected, out.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()
