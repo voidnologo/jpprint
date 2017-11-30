@@ -133,6 +133,15 @@ class JPPrintTests(unittest.TestCase):
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_diff_only_only_outputs_lines_that_are_different(self):
+        a = '{"a": "b", "c": "d"}'
+        b = '{"a": "b", "c": "not the same"}'
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a, b, diff_only=True)
+        expected = '    "c": "d"     <>        "c": "not the same"\n'
+        self.assertEqual(expected, out.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()
