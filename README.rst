@@ -1,3 +1,7 @@
+.. image:: https://travis-ci.org/voidnologo/jpprint.svg?branch=master
+    :target: https://travis-ci.org/voidnologo/jpprint
+
+
 JPPrint
 =======================
 
