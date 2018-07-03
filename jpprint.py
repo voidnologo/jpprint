@@ -8,11 +8,11 @@ except ImportError:
     from itertools import izip_longest as zip_longest
 
 
-def datetime_handler(*args):
+def datetime_or_default_handler(*args):
     if isinstance(args[1], datetime.datetime):
         return args[1].isoformat()
-    raise TypeError('Unknown Type')
-json.JSONEncoder.default = datetime_handler
+    return 'Unconvertable Type {} - {}'.format(type(args[1], args[1]))
+json.JSONEncoder.default = datetime_or_default_handler
 
 
 def formatter(data, indent):
