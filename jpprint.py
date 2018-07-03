@@ -11,7 +11,7 @@ except ImportError:
 def datetime_or_default_handler(*args):
     if isinstance(args[1], datetime.datetime):
         return args[1].isoformat()
-    return 'Unconvertable Type {} - {}'.format(type(args[1], args[1]))
+    return 'Unconvertable Type {} - {}'.format(type(args[1]), args[1])
 json.JSONEncoder.default = datetime_or_default_handler
 
 
