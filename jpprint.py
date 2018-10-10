@@ -32,6 +32,24 @@ def truncate(data, width):
     return '\n'.join([x[:width - 3] + ellipse if len(x) > width else x for x in data.split('\n')])
 
 
+def jpreturn(f1, f2=None, indent=4, separator='|', diff_ind='<>', diff_only=False, max_width=None):
+    f1 = formatter(f1, indent)
+    if not f2:
+        return f1
+    f2 = formatter(f2, indent)
+    if max_width:
+        f1 = truncate(f1, max_width)
+        f2 = truncate(f2, max_width)
+    l1width = max_len(f1)
+    l2width = max_len(f2)
+    string = ''
+    for l1, l2 in zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '):
+        delim = diff_ind if l1 != l2 else separator
+        if diff_only and l1 == l2:
+            continue
+        string += '{:{l1width}}{:^10}{:{l2width}}\n'.format(l1, delim, l2, l1width=l1width, l2width=l2width)
+    return string
+
 def jpprint(f1, f2=None, indent=4, separator='|', diff_ind='<>', diff_only=False, max_width=None):
     f1 = formatter(f1, indent)
     if not f2:

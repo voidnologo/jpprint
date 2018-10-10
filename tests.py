@@ -4,12 +4,12 @@ from io import StringIO
 import json
 import unittest
 
-from jpprint import jpprint, max_len
+from jpprint import jpreturn, jpprint, max_len
 
 
 class JPPrintTests(unittest.TestCase):
 
-    def test_prints_two_columns(self):
+    def test_jpprints_two_columns(self):
         a = {'a': 'b'}
         b = {'a': 'b'}
         out = StringIO()
@@ -20,7 +20,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_prints_shows_differences(self):
+    def test_jpreturns_two_columns(self):
+        a = {'a': 'b'}
+        b = {'a': 'b'}
+        out = jpreturn(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    |         "a": "b"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_jpprints_shows_differences(self):
         a = {'a': 'b'}
         b = {'b': 'a'}
         out = StringIO()
@@ -31,7 +40,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_can_change_separator(self):
+    def test_jpreturns_shows_differences(self):
+        a = {'a': 'b'}
+        b = {'b': 'a'}
+        out = jpreturn(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    <>        "b": "a"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_can_change_separator_jpprint(self):
         a = {'a': 'b'}
         b = {'a': 'b'}
         out = StringIO()
@@ -42,7 +60,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               .     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_can_change_diff_indicator(self):
+    def test_can_change_separator_jpreturn(self):
+        a = {'a': 'b'}
+        b = {'a': 'b'}
+        out = jpreturn(a, b, separator='.')
+        expected  = '{               .     {           \n'
+        expected += '    "a": "b"    .         "a": "b"\n'
+        expected += '}               .     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_can_change_diff_indicator_jpprint(self):
         a = {'a': 'b'}
         b = {'b': 'a'}
         out = StringIO()
@@ -53,7 +80,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_compare_two_dictionaries(self):
+    def test_can_change_diff_indicator_jpreturn(self):
+        a = {'a': 'b'}
+        b = {'b': 'a'}
+        out = jpreturn(a, b, diff_ind='?')
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    ?         "b": "a"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_compare_two_dictionaries_jpprint(self):
         a = {'a': 'b'}
         b = {'a': 'b'}
         out = StringIO()
@@ -64,7 +100,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_compare_two_json(self):
+    def test_compare_two_dictionaries_jpreturn(self):
+        a = {'a': 'b'}
+        b = {'a': 'b'}
+        out = jpreturn(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    |         "a": "b"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_compare_two_json_jpprint(self):
         a = json.dumps({'a': 'b'})
         b = json.dumps({'a': 'b'})
         out = StringIO()
@@ -75,7 +120,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_compare_json_and_dictionary(self):
+    def test_compare_two_json_jpreturn(self):
+        a = json.dumps({'a': 'b'})
+        b = json.dumps({'a': 'b'})
+        out = jpreturn(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    |         "a": "b"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_compare_json_and_dictionary_jpprint(self):
         a = json.dumps({'a': 'b'})
         b = {'a': 'b'}
         out = StringIO()
@@ -86,7 +140,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_compare_byte_encoded_json_and_string_json(self):
+    def test_compare_json_and_dictionary_jpreturn(self):
+        a = json.dumps({'a': 'b'})
+        b = {'a': 'b'}
+        out = jpreturn(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    |         "a": "b"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_compare_byte_encoded_json_and_string_json_jpprint(self):
         a = b'{"a": "b"}'
         b = '{"a": "b"}'
         out = StringIO()
@@ -97,7 +160,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
-    def test_accepts_only_one_argument(self):
+    def test_compare_byte_encoded_json_and_string_json_jpreturn(self):
+        a = b'{"a": "b"}'
+        b = '{"a": "b"}'
+        out = jpreturn(a, b)
+        expected  = '{               |     {           \n'
+        expected += '    "a": "b"    |         "a": "b"\n'
+        expected += '}               |     }           \n'
+        self.assertEqual(expected, out)
+
+    def test_accepts_only_one_argument_jpprint(self):
         a = b'{"a": "b"}'
         out = StringIO()
         with redirect_stdout(out):
@@ -106,6 +178,14 @@ class JPPrintTests(unittest.TestCase):
         expected += '    "a": "b"\n'
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
+
+    def test_accepts_only_one_argument_jpreturn(self):
+        a = b'{"a": "b"}'
+        out = jpreturn(a)
+        expected  = '{\n'
+        expected += '    "a": "b"\n'
+        expected += '}'
+        self.assertEqual(expected, out)
 
     def test_expands_based_on_longest_file_length(self):
         a = {'a': 'b'}
