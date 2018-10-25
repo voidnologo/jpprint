@@ -20,6 +20,18 @@ class JPPrintTests(unittest.TestCase):
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_show_line_numbers(self):
+        a = {'a': 'b'}
+        b = {'b': 'c', 'd': 'e'}
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a, b, show_ln=True)
+        expected  = '1{               |     {            \n'
+        expected += '2    "a": "b"    <>        "b": "c",\n'
+        expected += '3}               <>        "d": "e" \n'
+        expected += '4                <>    }            \n'
+        self.assertEqual(expected, out.getvalue())
+
     def test_prints_shows_differences(self):
         a = {'a': 'b'}
         b = {'b': 'a'}
