@@ -43,11 +43,15 @@ def jpprint(f1, f2=None, indent=4, separator='|', diff_ind='<>', diff_only=False
         f2 = truncate(f2, max_width)
     l1width = max_len(f1)
     l2width = max_len(f2)
-    for k, (l1, l2) in enumerate(zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1):
+    for line_no, (l1, l2) in enumerate(zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1):
         delim = diff_ind if l1 != l2 else separator
         if diff_only and l1 == l2:
             continue
-        if show_ln:
-            print('{}{:{l1width}}{:^10}{:{l2width}}'.format(k, l1, delim, l2, l1width=l1width, l2width=l2width))
-        else:
-            print('{:{l1width}}{:^10}{:{l2width}}'.format(l1, delim, l2, l1width=l1width, l2width=l2width))
+        print('{}{:{l1width}}{:^10}{:{l2width}}'.format(
+            line_no if show_ln else '',
+            l1,
+            delim,
+            l2,
+            l1width=l1width,
+            l2width=l2width
+        ))
