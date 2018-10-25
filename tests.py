@@ -166,6 +166,17 @@ class JPPrintTests(unittest.TestCase):
         expected += '}                  |     }              \n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_retr_option_returns_strings_instead_of_printing(self):
+        a = {'a': 'b'}
+        b = {'a': 'b'}
+        expected = [
+            '{               |     {           ',
+            '    "a": "b"    |         "a": "b"',
+            '}               |     }           ',
+        ]
+        output = jpprint(a, b, retr=True)
+        self.assertEqual(expected, output)
+
 
 if __name__ == '__main__':
     unittest.main()
