@@ -12,6 +12,8 @@ def datetime_or_default_handler(*args):
     if isinstance(args[1], datetime.datetime):
         return args[1].isoformat()
     return 'Unconvertable Type {} - {}'.format(type(args[1]), args[1])
+
+
 json.JSONEncoder.default = datetime_or_default_handler
 
 
@@ -19,7 +21,7 @@ def formatter(data, indent):
     data = data.decode() if isinstance(data, bytes) else data
     try:
         return json.dumps(json.loads(data), indent=indent, sort_keys=True)
-    except:
+    except Exception:
         return json.dumps(data, indent=indent, sort_keys=True)
 
 
@@ -29,7 +31,7 @@ def max_len(data):
 
 def truncate(data, width):
     ellipse = '...'
-    return '\n'.join([x[:width - 3] + ellipse if len(x) > width else x for x in data.split('\n')])
+    return '\n'.join([x[: width - 3] + ellipse if len(x) > width else x for x in data.split('\n')])
 
 
 def jpprint(f1, f2=None, **options):
@@ -62,15 +64,12 @@ def set_options(options):
 
 
 def create_output(f1, f2, diff_ind, separator, diff_only, show_ln, l1width, l2width):
-    for line_no, (l1, l2) in enumerate(zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1):
+    for line_no, (l1, l2) in enumerate(
+        zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1
+    ):
         delim = diff_ind if l1 != l2 else separator
         if diff_only and l1 == l2:
             continue
         yield '{}{:{l1width}}{:^10}{:{l2width}}'.format(
-            line_no if show_ln else '',
-            l1,
-            delim,
-            l2,
-            l1width=l1width,
-            l2width=l2width
+            line_no if show_ln else '', l1, delim, l2, l1width=l1width, l2width=l2width
         )
