@@ -3,6 +3,7 @@ from contextlib import redirect_stdout  # NOTE: redirect_stdout requires python3
 from io import StringIO
 import json
 import unittest
+import uuid
 
 from jpprint import jpprint, max_len
 
@@ -15,7 +16,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -26,7 +27,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, show_ln=True)
-        expected  = '1{               |     {            \n'
+        expected = '1{               |     {            \n'
         expected += '2    "a": "b"    <>        "b": "c",\n'
         expected += '3}               <>        "d": "e" \n'
         expected += '4                <>    }            \n'
@@ -38,7 +39,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    <>        "b": "a"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -49,7 +50,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, separator='.')
-        expected  = '{               .     {           \n'
+        expected = '{               .     {           \n'
         expected += '    "a": "b"    .         "a": "b"\n'
         expected += '}               .     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -60,7 +61,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, diff_ind='?')
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    ?         "b": "a"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -71,7 +72,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -82,7 +83,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -93,7 +94,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -104,7 +105,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -114,7 +115,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a)
-        expected  = '{\n'
+        expected = '{\n'
         expected += '    "a": "b"\n'
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
@@ -125,7 +126,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b)
-        expected  = '{               |     {            \n'
+        expected = '{               |     {            \n'
         expected += '    "a": "b"    <>        "a": "b",\n'
         expected += '}               <>        "c": "d" \n'
         expected += '                <>    }            \n'
@@ -145,6 +146,17 @@ class JPPrintTests(unittest.TestCase):
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_accepts_uuid_objects(self):
+        uid = uuid.uuid4()
+        a = {'uid': uid}
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a)
+        expected = '{\n'
+        expected += f'    "uid": "{uid}"\n'
+        expected += '}\n'
+        self.assertEqual(expected, out.getvalue())
+
     def test_diff_only_only_outputs_lines_that_are_different(self):
         a = '{"a": "b", "c": "d"}'
         b = '{"a": "b", "c": "not the same"}'
@@ -160,7 +172,7 @@ class JPPrintTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, max_width=15)
-        expected  = '{                  |     {              \n'
+        expected = '{                  |     {              \n'
         expected += '    "a": "12...    <>        "a": "09...\n'
         expected += '    "b": "b"       |         "b": "b"   \n'
         expected += '}                  |     }              \n'

@@ -1,5 +1,6 @@
 import datetime
 import json
+import uuid
 
 
 try:
@@ -8,13 +9,15 @@ except ImportError:
     from itertools import izip_longest as zip_longest
 
 
-def datetime_or_default_handler(*args):
+def default_handler(*args):
     if isinstance(args[1], datetime.datetime):
         return args[1].isoformat()
+    if isinstance(args[1], uuid.UUID):
+        return str(args[1])
     return 'Unconvertable Type {} - {}'.format(type(args[1]), args[1])
 
 
-json.JSONEncoder.default = datetime_or_default_handler
+json.JSONEncoder.default = default_handler
 
 
 def formatter(data, indent):
@@ -64,9 +67,7 @@ def set_options(options):
 
 
 def create_output(f1, f2, diff_ind, separator, diff_only, show_ln, l1width, l2width):
-    for line_no, (l1, l2) in enumerate(
-        zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1
-    ):
+    for line_no, (l1, l2) in enumerate(zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1):
         delim = diff_ind if l1 != l2 else separator
         if diff_only and l1 == l2:
             continue
