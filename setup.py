@@ -6,11 +6,11 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='jpprint',
-    version='0.0.11',
+    version='0.0.12',
     description='Basic print and comparison of two dictionaries and/or json files',
     url='https://github.com/voidnologo/jpprint',
     author='voidnologo',
-    author_email='void.no.logo@gmail.com',
+    author_email='dev@voidnologo.com',
     license='None',
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -22,6 +22,9 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
     py_modules=["jpprint"],
 )
