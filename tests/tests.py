@@ -146,6 +146,16 @@ class JPPrintTests(unittest.TestCase):
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
 
+    def test_accepts_date_objects(self):
+        a = {'date': datetime.date(2017, 12, 31)}
+        out = StringIO()
+        with redirect_stdout(out):
+            jpprint(a)
+        expected = '{\n'
+        expected += '    "date": "2017-12-31"\n'
+        expected += '}\n'
+        self.assertEqual(expected, out.getvalue())
+
     def test_accepts_uuid_objects(self):
         uid = uuid.uuid4()
         a = {'uid': uid}
