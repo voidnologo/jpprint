@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jpprint"
-version='0.13.0'
+version="0.13.0"
 description='Basic print and comparison of two dictionaries and/or json files'
-readme = "README.rst"
+readme = "README.md"
 authors = [{ name = "voidnologo", email = "dev@voidnologo.com" }]
-license-files = ["LICENSE"]
+license = "MIT"
 keywords = ["json", "print"]
-requires-python = ">=2.7"
+requires-python = ">=3.6"
 dependencies = []
 dynamic = ["classifiers"]
 
