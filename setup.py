@@ -6,7 +6,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='jpprint',
-    version='0.1.0',
+    version='0.13.0',
     description='Basic print and comparison of two dictionaries and/or json files',
     url='https://github.com/voidnologo/jpprint',
     author='voidnologo',
