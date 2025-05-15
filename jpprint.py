@@ -10,7 +10,7 @@ except ImportError:
 
 
 def default_handler(*args):
-    if isinstance(args[1], datetime.datetime):
+    if isinstance(args[1], datetime.datetime | datetime.date):
         return args[1].isoformat()
     if isinstance(args[1], uuid.UUID):
         return str(args[1])
