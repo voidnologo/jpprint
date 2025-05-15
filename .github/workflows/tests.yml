@@ -61,6 +61,7 @@ jobs:
     if: always()
     permissions:
       checks: write
+      pull-requests: write
 
     steps:
       - name: Download artifacts
