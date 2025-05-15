@@ -45,7 +45,7 @@ jobs:
           python -m pip install unittest-xml-reporting
 
       - name: Run tests
-        run: python -m xmlrunner discover -t . --output-file unit-test.xml
+        run: python -m xmlrunner discover -t tests --output-file unit-test.xml
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
