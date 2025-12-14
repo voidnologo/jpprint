@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "jpprint"
@@ -8,6 +8,7 @@ version = "2.0.0"
 description = "Side-by-side JSON comparison tool with color-coded diff indicators"
 readme = "README.md"
 requires-python = ">=3.10"
+license = {text = "MIT"}
 authors = [
     {name = "voidnologo", email = "dev@voidnologo.com"},
 ]
@@ -33,9 +34,8 @@ dev = [
     "isort>=5.12.0",
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src*", "jpprint"]
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
 
 [tool.ruff]
 line-length = 110
