@@ -5,6 +5,9 @@ except ImportError:
 
 from .colors import apply_line_color, classify_diff_type
 
+BOX_SEPARATOR = '│'
+BOX_DIFF_INDICATOR = '◆'
+
 
 def create_output(
     f1: str,
@@ -16,12 +19,17 @@ def create_output(
     l1width: int,
     l2width: int,
     use_colors: bool,
+    use_box_chars: bool = False,
 ):
     for line_no, (l1, l2) in enumerate(
         zip_longest(f1.splitlines(), f2.splitlines(), fillvalue=' '), 1
     ):
         diff_type = classify_diff_type(l1, l2, fillvalue=' ')
-        delim = diff_ind if l1 != l2 else separator
+
+        if use_box_chars:
+            delim = BOX_DIFF_INDICATOR if l1 != l2 else BOX_SEPARATOR
+        else:
+            delim = diff_ind if l1 != l2 else separator
 
         if diff_only and l1 == l2:
             continue

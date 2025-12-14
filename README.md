@@ -9,6 +9,7 @@ Side-by-side JSON comparison tool with color-coded diff indicators.
   - 🔴 **Red**: Deletions (content only in left/base)
   - 🟢 **Green**: Additions (content only in right/comparison)
   - 🟡 **Yellow**: Modifications (different content in both)
+- **Unicode box-drawing**: Beautiful visual separators using Unicode characters (│ and ◆)
 - **Flexible formatting**: Configurable indent, separators, and display options
 - **Pure Python**: No external dependencies, stdlib only
 - **Python 3.10+**: Modern type hints and clean code
@@ -97,14 +98,30 @@ output = jpprint(left, right, retr=True)
 # Returns list of strings instead of printing
 ```
 
+### Box-Drawing Characters
+
+```python
+jpprint(left, right, use_box_chars=True)
+# Uses Unicode box characters: │ for equal lines, ◆ for diffs
+# Much cleaner visual appearance with high contrast
+```
+
+### Combined: Colors + Box Characters (Recommended)
+
+```python
+jpprint(left, right, use_box_chars=True)
+# Colors enabled by default, box chars make it even better!
+```
+
 ## Configuration Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `use_colors` | bool | `True` | Enable/disable color output |
+| `use_box_chars` | bool | `False` | Use Unicode box-drawing characters (│, ◆) |
 | `indent` | int | `4` | JSON indentation spaces |
-| `separator` | str | `\|` | Column separator for equal lines |
-| `diff_ind` | str | `<>` | Indicator for different lines |
+| `separator` | str | `\|` | Column separator for equal lines (ignored if `use_box_chars=True`) |
+| `diff_ind` | str | `<>` | Indicator for different lines (ignored if `use_box_chars=True`) |
 | `diff_only` | bool | `False` | Show only lines that differ |
 | `show_ln` | bool | `False` | Display line numbers |
 | `max_width` | int | `None` | Truncate lines to max width |
@@ -171,6 +188,18 @@ jpprint(data)
 # Automatically converts datetime to ISO format
 ```
 
+## Examples
+
+Check out the `examples/` directory for detailed demonstrations:
+
+```bash
+# Color diff examples
+python examples/example_color_diff.py
+
+# Box-drawing mode examples
+python examples/example_box_mode.py
+```
+
 ## Development
 
 ### Setup
@@ -221,7 +250,11 @@ jpprint/
 │   ├── test_basic.py    # Core functionality tests
 │   ├── test_options.py  # Configuration tests
 │   └── test_colors.py   # Color diff tests
-└── pyproject.toml       # Project configuration
+├── examples/
+│   ├── example_color_diff.py  # Color diff demonstrations
+│   └── example_box_mode.py    # Box-drawing demonstrations
+├── pyproject.toml       # Project configuration
+└── README.md            # This file
 ```
 
 ## Requirements

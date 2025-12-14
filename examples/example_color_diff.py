@@ -9,6 +9,11 @@ This script shows different diff scenarios:
 - EQUAL lines (no color): Lines that are identical
 """
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from jpprint import jpprint
 
 print("=" * 80)

@@ -73,6 +73,32 @@ class OptionsTests(unittest.TestCase):
         output = jpprint(a, b, retr=True, use_colors=False)
         self.assertEqual(expected, output)
 
+    def test_box_characters_enabled(self):
+        a = {'a': 'b'}
+        b = {'a': 'b'}
+        output = jpprint(a, b, retr=True, use_colors=False, use_box_chars=True)
+        # Should contain box drawing characters
+        output_str = '\n'.join(output)
+        self.assertIn('│', output_str)
+        self.assertNotIn('|', output_str)
+
+    def test_box_characters_with_differences(self):
+        a = {'a': 'b'}
+        b = {'a': 'c'}
+        output = jpprint(a, b, retr=True, use_colors=False, use_box_chars=True)
+        # Should contain diamond for diffs
+        output_str = '\n'.join(output)
+        self.assertIn('◆', output_str)
+
+    def test_box_characters_default_disabled(self):
+        a = {'a': 'b'}
+        b = {'a': 'b'}
+        output = jpprint(a, b, retr=True, use_colors=False)
+        # Should use regular characters by default
+        output_str = '\n'.join(output)
+        self.assertIn('|', output_str)
+        self.assertNotIn('│', output_str)
+
 
 if __name__ == '__main__':
     unittest.main()
