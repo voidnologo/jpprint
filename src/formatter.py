@@ -1,10 +1,13 @@
 import datetime
 import json
+import uuid
 
 
 def datetime_or_default_handler(*args):
-    if isinstance(args[1], datetime.datetime):
+    if isinstance(args[1], (datetime.datetime, datetime.date)):
         return args[1].isoformat()
+    if isinstance(args[1], uuid.UUID):
+        return str(args[1])
     return 'Unconvertable Type {} - {}'.format(type(args[1]), args[1])
 
 
