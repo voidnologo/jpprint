@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jpprint"
-version = "2.0.0"
+version = "2.0.1"
 description = "Side-by-side JSON comparison tool with color-coded diff indicators"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -35,7 +35,14 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/jpprint"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/jpprint",
+    "tests",
+    "examples",
+]
 
 [tool.ruff]
 line-length = 110

@@ -1,13 +1,14 @@
 import datetime
 import json
-import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 
 from jpprint import jpprint, max_len
 
+from . import BaseTestCase
 
-class BasicTests(unittest.TestCase):
+
+class BasicTests(BaseTestCase):
     def test_prints_two_columns(self):
         a = {'a': 'b'}
         b = {'a': 'b'}
@@ -26,7 +27,8 @@ class BasicTests(unittest.TestCase):
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
         expected = '{               |     {           \n'
-        expected += '    "a": "b"    <>        "b": "a"\n'
+        expected += '    "a": "b"    <>                \n'
+        expected += '                <>        "b": "a"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
@@ -109,7 +111,3 @@ class BasicTests(unittest.TestCase):
         expected += '    "datetime": "2017-12-31T00:00:00"\n'
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
-
-
-if __name__ == '__main__':
-    unittest.main()

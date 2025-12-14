@@ -1,11 +1,12 @@
-import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 
 from jpprint import jpprint
 
+from . import BaseTestCase
 
-class OptionsTests(unittest.TestCase):
+
+class OptionsTests(BaseTestCase):
     def test_show_line_numbers(self):
         a = {'a': 'b'}
         b = {'b': 'c', 'd': 'e'}
@@ -36,7 +37,8 @@ class OptionsTests(unittest.TestCase):
         with redirect_stdout(out):
             jpprint(a, b, diff_ind='?', use_colors=False, use_box_chars=False)
         expected = '{               |     {           \n'
-        expected += '    "a": "b"    ?         "b": "a"\n'
+        expected += '    "a": "b"    ?                 \n'
+        expected += '                ?         "b": "a"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
 
@@ -97,7 +99,3 @@ class OptionsTests(unittest.TestCase):
         output_str = '\n'.join(output)
         self.assertIn('│', output_str)
         self.assertNotIn('|', output_str)
-
-
-if __name__ == '__main__':
-    unittest.main()
