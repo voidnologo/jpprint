@@ -55,16 +55,57 @@ def process_insert_lines(right_lines, j1, j2, params):
         yield format_diff_line('', r_line, DiffType.ADDED, **params)
 
 
+def extract_json_key(line: str) -> str:
+    """Extract the key from a JSON line like '    "key": "value"'"""
+    line = line.strip()
+    if ':' in line:
+        key_part = line.split(':', 1)[0].strip()
+        return key_part.strip('"')
+    return ''
+
+
+def match_lines_by_key(left_block, right_block):
+    """Match lines by JSON key and return sets of processed indices and matched pairs."""
+    left_keys = {extract_json_key(line): (idx, line) for idx, line in enumerate(left_block)}
+    right_keys = {extract_json_key(line): (idx, line) for idx, line in enumerate(right_block)}
+
+    matched_pairs = []
+    processed_left = set()
+    processed_right = set()
+
+    for key in left_keys:
+        if key and key in right_keys:
+            left_idx, left_line = left_keys[key]
+            right_idx, right_line = right_keys[key]
+            matched_pairs.append((left_line, right_line))
+            processed_left.add(left_idx)
+            processed_right.add(right_idx)
+
+    return matched_pairs, processed_left, processed_right
+
+
 def process_replace_lines(left_lines, right_lines, i1, i2, j1, j2, params):
     left_block = left_lines[i1:i2]
     right_block = right_lines[j1:j2]
-    max_lines = max(len(left_block), len(right_block))
 
-    for idx in range(max_lines):
+    matched_pairs, processed_left, processed_right = match_lines_by_key(left_block, right_block)
+
+    # Process lines with matching keys (modified)
+    for left_line, right_line in matched_pairs:
         params['line_no'] += 1
-        l_line = left_block[idx] if idx < len(left_block) else ''
-        r_line = right_block[idx] if idx < len(right_block) else ''
-        yield format_diff_line(l_line, r_line, DiffType.MODIFIED, **params)
+        yield format_diff_line(left_line, right_line, DiffType.MODIFIED, **params)
+
+    # Show unmatched left lines (deleted)
+    for idx, line in enumerate(left_block):
+        if idx not in processed_left:
+            params['line_no'] += 1
+            yield format_diff_line(line, '', DiffType.DELETED, **params)
+
+    # Show unmatched right lines (added)
+    for idx, line in enumerate(right_block):
+        if idx not in processed_right:
+            params['line_no'] += 1
+            yield format_diff_line('', line, DiffType.ADDED, **params)
 
 
 def create_output_aligned(

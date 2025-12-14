@@ -1,12 +1,12 @@
-import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 
-from jpprint import jpprint
-from src.colors import ColorCode, DiffType, apply_line_color, classify_diff_type, strip_color
+from jpprint import ColorCode, DiffType, apply_line_color, classify_diff_type, jpprint, strip_color
+
+from . import BaseTestCase
 
 
-class ColorTests(unittest.TestCase):
+class ColorTests(BaseTestCase):
     def test_colors_enabled_by_default(self):
         a = {'a': 'b'}
         b = {'c': 'd'}
@@ -85,7 +85,3 @@ class ColorTests(unittest.TestCase):
         stripped = strip_color(colored)
         self.assertEqual(stripped, 'test')
         self.assertNotIn('\033[', stripped)
-
-
-if __name__ == '__main__':
-    unittest.main()

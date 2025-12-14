@@ -55,15 +55,17 @@ isort .            # Import sorting
 
 ```
 jpprint/
-├── src/              # Source code
+├── src/jpprint/      # Source code
 │   ├── __init__.py   # Public API exports
 │   ├── colors.py     # Color codes and diff classification
 │   ├── formatter.py  # JSON formatting utilities
 │   ├── output.py     # Output generation
 │   └── core.py       # Main jpprint function
 ├── tests/            # Unit tests
+│   └── __init__.py   # BaseTestCase for all tests
 ├── examples/         # Example scripts
 ├── .github/          # GitHub Actions workflows
+├── run_tests.py      # Test runner script
 └── pyproject.toml    # Project configuration
 ```
 
@@ -79,7 +81,8 @@ jpprint/
 
 - Use `unittest` (stdlib) - no pytest
 - Test files: `tests/test_*.py`
-- Run tests: `python -m unittest discover -s tests -p "test_*.py" -v`
+- All test classes inherit from `BaseTestCase` in `tests/__init__.py`
+- Run tests: `python run_tests.py` or `python -m unittest discover -s tests -t . -p "test_*.py" -v`
 
 ### Test Coverage
 
@@ -93,6 +96,7 @@ jpprint/
 - `test_options.py` - Configuration options
 - `test_colors.py` - Color diff features
 - `test_alignment.py` - Line alignment features
+- `__init__.py` - BaseTestCase to eliminate test boilerplate
 
 ## Git Workflow
 
@@ -108,7 +112,7 @@ jpprint/
 
 - **Separate workflows** for linting and testing
 - `lint.yml` - Runs ruff format, ruff check, isort on Python 3.12
-- `test.yml` - Runs tests on Python 3.10, 3.11, 3.12, 3.13
+- `test.yml` - Runs `python run_tests.py` on Python 3.10, 3.11, 3.12, 3.13
 
 ## Design Principles
 
