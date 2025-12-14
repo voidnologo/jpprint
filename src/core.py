@@ -11,7 +11,7 @@ def set_options(options: dict) -> tuple:
     show_ln = options.get('show_ln', False)
     retr = options.get('retr', False)
     use_colors = options.get('use_colors', True)
-    use_box_chars = options.get('use_box_chars', False)
+    use_box_chars = options.get('use_box_chars', True)
     align_lines = options.get('align_lines', True)
     return indent, separator, def_ind, diff_only, max_width, show_ln, retr, use_colors, use_box_chars, align_lines
 

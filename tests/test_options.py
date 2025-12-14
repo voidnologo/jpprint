@@ -12,7 +12,7 @@ class OptionsTests(unittest.TestCase):
         b = {'b': 'c', 'd': 'e'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, show_ln=True, use_colors=False, align_lines=False)
+            jpprint(a, b, show_ln=True, use_colors=False, use_box_chars=False, align_lines=False)
         expected  = '1{               |     {            \n'
         expected += '2    "a": "b"    <>        "b": "c",\n'
         expected += '3}               <>        "d": "e" \n'
@@ -24,7 +24,7 @@ class OptionsTests(unittest.TestCase):
         b = {'a': 'b'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, separator='.', use_colors=False)
+            jpprint(a, b, separator='.', use_colors=False, use_box_chars=False)
         expected  = '{               .     {           \n'
         expected += '    "a": "b"    .         "a": "b"\n'
         expected += '}               .     }           \n'
@@ -35,7 +35,7 @@ class OptionsTests(unittest.TestCase):
         b = {'b': 'a'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, diff_ind='?', use_colors=False)
+            jpprint(a, b, diff_ind='?', use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    ?         "b": "a"\n'
         expected += '}               |     }           \n'
@@ -46,7 +46,7 @@ class OptionsTests(unittest.TestCase):
         b = '{"a": "b", "c": "not the same"}'
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, diff_only=True, use_colors=False)
+            jpprint(a, b, diff_only=True, use_colors=False, use_box_chars=False)
         expected = '    "c": "d"     <>        "c": "not the same"\n'
         self.assertEqual(expected, out.getvalue())
 
@@ -55,7 +55,7 @@ class OptionsTests(unittest.TestCase):
         b = '{"a": "0987654321", "b": "b"}'
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, max_width=15, use_colors=False)
+            jpprint(a, b, max_width=15, use_colors=False, use_box_chars=False)
         expected  = '{                  |     {              \n'
         expected += '    "a": "12...    <>        "a": "09...\n'
         expected += '    "b": "b"       |         "b": "b"   \n'
@@ -70,7 +70,7 @@ class OptionsTests(unittest.TestCase):
             '    "a": "b"    |         "a": "b"',
             '}               |     }           ',
         ]
-        output = jpprint(a, b, retr=True, use_colors=False)
+        output = jpprint(a, b, retr=True, use_colors=False, use_box_chars=False)
         self.assertEqual(expected, output)
 
     def test_box_characters_enabled(self):
@@ -90,14 +90,14 @@ class OptionsTests(unittest.TestCase):
         output_str = '\n'.join(output)
         self.assertIn('◆', output_str)
 
-    def test_box_characters_default_disabled(self):
+    def test_box_characters_default_enabled(self):
         a = {'a': 'b'}
         b = {'a': 'b'}
         output = jpprint(a, b, retr=True, use_colors=False)
-        # Should use regular characters by default
+        # Box characters should be enabled by default
         output_str = '\n'.join(output)
-        self.assertIn('|', output_str)
-        self.assertNotIn('│', output_str)
+        self.assertIn('│', output_str)
+        self.assertNotIn('|', output_str)
 
 
 if __name__ == '__main__':

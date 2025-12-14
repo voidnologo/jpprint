@@ -102,16 +102,20 @@ output = jpprint(left, right, retr=True)
 ### Box-Drawing Characters
 
 ```python
-jpprint(left, right, use_box_chars=True)
+jpprint(left, right)
+# Box characters enabled by default!
 # Uses Unicode box characters: │ for equal lines, ◆ for diffs
-# Much cleaner visual appearance with high contrast
+
+# Disable if you prefer ASCII characters
+jpprint(left, right, use_box_chars=False)
 ```
 
-### Combined: Colors + Box Characters (Recommended)
+### Default: Colors + Box Characters + Alignment (Recommended!)
 
 ```python
-jpprint(left, right, use_box_chars=True)
-# Colors enabled by default, box chars make it even better!
+jpprint(left, right)
+# Colors, box chars, and alignment all enabled by default!
+# Beautiful, clear, easy-to-read diffs out of the box
 ```
 
 ### Intelligent Line Alignment
@@ -135,7 +139,7 @@ jpprint(left, right, align_lines=False)
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `use_colors` | bool | `True` | Enable/disable color output |
-| `use_box_chars` | bool | `False` | Use Unicode box-drawing characters (│, ◆) |
+| `use_box_chars` | bool | `True` | Use Unicode box-drawing characters (│, ◆) |
 | `align_lines` | bool | `True` | Intelligently align matching lines using difflib |
 | `indent` | int | `4` | JSON indentation spaces |
 | `separator` | str | `\|` | Column separator for equal lines (ignored if `use_box_chars=True`) |

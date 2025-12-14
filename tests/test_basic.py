@@ -14,7 +14,7 @@ class BasicTests(unittest.TestCase):
         b = {'a': 'b'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
@@ -25,7 +25,7 @@ class BasicTests(unittest.TestCase):
         b = {'b': 'a'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    <>        "b": "a"\n'
         expected += '}               |     }           \n'
@@ -36,7 +36,7 @@ class BasicTests(unittest.TestCase):
         b = {'a': 'b'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
@@ -47,7 +47,7 @@ class BasicTests(unittest.TestCase):
         b = json.dumps({'a': 'b'})
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
@@ -58,7 +58,7 @@ class BasicTests(unittest.TestCase):
         b = {'a': 'b'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
@@ -69,7 +69,7 @@ class BasicTests(unittest.TestCase):
         b = '{"a": "b"}'
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False)
         expected  = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
@@ -90,7 +90,7 @@ class BasicTests(unittest.TestCase):
         b = {'a': 'b', 'c': 'd'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False, align_lines=False)
+            jpprint(a, b, use_colors=False, use_box_chars=False, align_lines=False)
         expected  = '{               |     {            \n'
         expected += '    "a": "b"    <>        "a": "b",\n'
         expected += '}               <>        "c": "d" \n'
