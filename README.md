@@ -1,5 +1,11 @@
 # jpprint
 
+[![Tests](https://github.com/voidnologo/jpprint/actions/workflows/test.yml/badge.svg)](https://github.com/voidnologo/jpprint/actions/workflows/test.yml)
+[![Lint](https://github.com/voidnologo/jpprint/actions/workflows/lint.yml/badge.svg)](https://github.com/voidnologo/jpprint/actions/workflows/lint.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![PyPI version](https://badge.fury.io/py/jpprint.svg)](https://badge.fury.io/py/jpprint)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Side-by-side JSON comparison tool with color-coded diff indicators.
 
 ## Features
@@ -143,7 +149,7 @@ pip install -e ".[dev]"
 ### Running Tests
 
 ```bash
-python -m unittest discover -s tests -p "test_*.py" -v
+python run_tests.py
 ```
 
 ### Code Quality
