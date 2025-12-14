@@ -1,13 +1,9 @@
 import unittest
-from contextlib import redirect_stdout
-from io import StringIO
 
 from jpprint import jpprint
-from src.colors import ColorCode
 
 
 class AlignmentTests(unittest.TestCase):
-
     def test_alignment_matches_common_lines(self):
         # Lines that exist in both should align
         a = {'a': 'b', 'x': 'delete_me', 'z': 'end'}
@@ -84,18 +80,8 @@ class AlignmentTests(unittest.TestCase):
 
     def test_alignment_complex_case(self):
         # More complex alignment scenario
-        a = {
-            'status': 'ok',
-            'removed': 'field',
-            'user': 'alice',
-            'value': 1
-        }
-        b = {
-            'added': 'field',
-            'status': 'ok',
-            'user': 'alice',
-            'value': 1
-        }
+        a = {'status': 'ok', 'removed': 'field', 'user': 'alice', 'value': 1}
+        b = {'added': 'field', 'status': 'ok', 'user': 'alice', 'value': 1}
         output = jpprint(a, b, retr=True, use_colors=False, align_lines=True)
 
         # status, user, and value should align

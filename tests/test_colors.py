@@ -7,7 +7,6 @@ from src.colors import ColorCode, DiffType, apply_line_color, classify_diff_type
 
 
 class ColorTests(unittest.TestCase):
-
     def test_colors_enabled_by_default(self):
         a = {'a': 'b'}
         b = {'c': 'd'}
@@ -82,7 +81,7 @@ class ColorTests(unittest.TestCase):
         self.assertIn(ColorCode.YELLOW.value, right_result)
 
     def test_strip_color_removes_ansi_codes(self):
-        colored = f"{ColorCode.RED.value}test{ColorCode.RESET.value}"
+        colored = f'{ColorCode.RED.value}test{ColorCode.RESET.value}'
         stripped = strip_color(colored)
         self.assertEqual(stripped, 'test')
         self.assertNotIn('\033[', stripped)

@@ -8,14 +8,13 @@ from jpprint import jpprint, max_len
 
 
 class BasicTests(unittest.TestCase):
-
     def test_prints_two_columns(self):
         a = {'a': 'b'}
         b = {'a': 'b'}
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -26,7 +25,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    <>        "b": "a"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -37,7 +36,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -48,7 +47,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -59,7 +58,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -70,7 +69,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    |         "a": "b"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -80,7 +79,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a)
-        expected  = '{\n'
+        expected = '{\n'
         expected += '    "a": "b"\n'
         expected += '}\n'
         self.assertEqual(expected, out.getvalue())
@@ -91,7 +90,7 @@ class BasicTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, use_colors=False, use_box_chars=False, align_lines=False)
-        expected  = '{               |     {            \n'
+        expected = '{               |     {            \n'
         expected += '    "a": "b"    <>        "a": "b",\n'
         expected += '}               <>        "c": "d" \n'
         expected += '                <>    }            \n'

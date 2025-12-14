@@ -7,13 +7,24 @@ def set_options(options: dict) -> tuple:
     separator = options.get('separator', '|')
     def_ind = options.get('diff_ind', '<>')
     diff_only = options.get('diff_only', False)
-    max_width = options.get('max_width', None)
+    max_width = options.get('max_width')
     show_ln = options.get('show_ln', False)
     retr = options.get('retr', False)
     use_colors = options.get('use_colors', True)
     use_box_chars = options.get('use_box_chars', True)
     align_lines = options.get('align_lines', True)
-    return indent, separator, def_ind, diff_only, max_width, show_ln, retr, use_colors, use_box_chars, align_lines
+    return (
+        indent,
+        separator,
+        def_ind,
+        diff_only,
+        max_width,
+        show_ln,
+        retr,
+        use_colors,
+        use_box_chars,
+        align_lines,
+    )
 
 
 def jpprint(f1, f2=None, **options):
@@ -41,7 +52,17 @@ def jpprint(f1, f2=None, **options):
     l2width = max_len(f2)
     output = list(
         create_output(
-            f1, f2, diff_ind, separator, diff_only, show_ln, l1width, l2width, use_colors, use_box_chars, align_lines
+            f1,
+            f2,
+            diff_ind,
+            separator,
+            diff_only,
+            show_ln,
+            l1width,
+            l2width,
+            use_colors,
+            use_box_chars,
+            align_lines,
         )
     )
     if retr:

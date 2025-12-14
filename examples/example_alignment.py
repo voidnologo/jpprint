@@ -13,9 +13,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from jpprint import jpprint
 
-print("=" * 80)
-print("Example 1: WITHOUT alignment (align_lines=False)")
-print("=" * 80)
+print('=' * 80)
+print('Example 1: WITHOUT alignment (align_lines=False)')
+print('=' * 80)
 print("Notice how matching lines don't align - harder to read")
 print()
 
@@ -33,17 +33,17 @@ right = {
 
 jpprint(left, right, use_box_chars=True, align_lines=False)
 
-print("\n" + "=" * 80)
-print("Example 2: WITH intelligent alignment (align_lines=True, DEFAULT)")
-print("=" * 80)
-print("Matching lines align perfectly - much clearer!")
+print('\n' + '=' * 80)
+print('Example 2: WITH intelligent alignment (align_lines=True, DEFAULT)')
+print('=' * 80)
+print('Matching lines align perfectly - much clearer!')
 print()
 
 jpprint(left, right, use_box_chars=True)
 
-print("\n" + "=" * 80)
-print("Example 3: Real-world API version comparison")
-print("=" * 80)
+print('\n' + '=' * 80)
+print('Example 3: Real-world API version comparison')
+print('=' * 80)
 
 v1_api = {
     'status': 'success',
@@ -73,15 +73,15 @@ v2_api = {
 
 jpprint(v1_api, v2_api, use_box_chars=True)
 
-print("\n" + "=" * 80)
-print("Example 4: Empty dict handling")
-print("=" * 80)
+print('\n' + '=' * 80)
+print('Example 4: Empty dict handling')
+print('=' * 80)
 
-print("Empty left, content right:")
+print('Empty left, content right:')
 jpprint({}, {'new_field': 'value'}, use_box_chars=True)
 
-print("\nContent left, empty right:")
+print('\nContent left, empty right:')
 jpprint({'old_field': 'value'}, {}, use_box_chars=True)
 
-print("\nBoth empty:")
+print('\nBoth empty:')
 jpprint({}, {}, use_box_chars=True)

@@ -6,14 +6,13 @@ from jpprint import jpprint
 
 
 class OptionsTests(unittest.TestCase):
-
     def test_show_line_numbers(self):
         a = {'a': 'b'}
         b = {'b': 'c', 'd': 'e'}
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, show_ln=True, use_colors=False, use_box_chars=False, align_lines=False)
-        expected  = '1{               |     {            \n'
+        expected = '1{               |     {            \n'
         expected += '2    "a": "b"    <>        "b": "c",\n'
         expected += '3}               <>        "d": "e" \n'
         expected += '4                <>    }            \n'
@@ -25,7 +24,7 @@ class OptionsTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, separator='.', use_colors=False, use_box_chars=False)
-        expected  = '{               .     {           \n'
+        expected = '{               .     {           \n'
         expected += '    "a": "b"    .         "a": "b"\n'
         expected += '}               .     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -36,7 +35,7 @@ class OptionsTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, diff_ind='?', use_colors=False, use_box_chars=False)
-        expected  = '{               |     {           \n'
+        expected = '{               |     {           \n'
         expected += '    "a": "b"    ?         "b": "a"\n'
         expected += '}               |     }           \n'
         self.assertEqual(expected, out.getvalue())
@@ -56,7 +55,7 @@ class OptionsTests(unittest.TestCase):
         out = StringIO()
         with redirect_stdout(out):
             jpprint(a, b, max_width=15, use_colors=False, use_box_chars=False)
-        expected  = '{                  |     {              \n'
+        expected = '{                  |     {              \n'
         expected += '    "a": "12...    <>        "a": "09...\n'
         expected += '    "b": "b"       |         "b": "b"   \n'
         expected += '}                  |     }              \n'

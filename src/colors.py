@@ -17,7 +17,7 @@ class DiffType(Enum):
 
 
 def colorize(text: str, color: ColorCode) -> str:
-    return f"{color.value}{text}{ColorCode.RESET.value}"
+    return f'{color.value}{text}{ColorCode.RESET.value}'
 
 
 def strip_color(text: str) -> str:
