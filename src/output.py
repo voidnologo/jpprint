@@ -1,9 +1,5 @@
 import difflib
-
-try:
-    from itertools import zip_longest
-except ImportError:
-    from itertools import izip_longest as zip_longest
+from itertools import zip_longest
 
 from .colors import DiffType, apply_line_color, classify_diff_type
 
