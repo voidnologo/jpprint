@@ -3,42 +3,42 @@ from .output import create_output
 
 
 def set_options(options: dict) -> tuple:
-    indent = options.get('indent', 4)
-    separator = options.get('separator', '|')
-    def_ind = options.get('diff_ind', '<>')
-    diff_only = options.get('diff_only', False)
-    max_width = options.get('max_width')
-    show_ln = options.get('show_ln', False)
-    retr = options.get('retr', False)
-    use_colors = options.get('use_colors', True)
-    use_box_chars = options.get('use_box_chars', True)
     align_lines = options.get('align_lines', True)
+    diff_ind = options.get('diff_ind', '<>')
+    diff_only = options.get('diff_only', False)
+    indent = options.get('indent', 4)
+    max_width = options.get('max_width')
+    retr = options.get('retr', False)
+    separator = options.get('separator', '|')
+    show_ln = options.get('show_ln', False)
+    use_box_chars = options.get('use_box_chars', True)
+    use_colors = options.get('use_colors', True)
     return (
-        indent,
-        separator,
-        def_ind,
-        diff_only,
-        max_width,
-        show_ln,
-        retr,
-        use_colors,
-        use_box_chars,
         align_lines,
+        diff_ind,
+        diff_only,
+        indent,
+        max_width,
+        retr,
+        separator,
+        show_ln,
+        use_box_chars,
+        use_colors,
     )
 
 
 def jpprint(f1, f2=None, **options):
     (
-        indent,
-        separator,
+        align_lines,
         diff_ind,
         diff_only,
+        indent,
         max_width,
-        show_ln,
         retr,
-        use_colors,
+        separator,
+        show_ln,
         use_box_chars,
-        align_lines,
+        use_colors,
     ) = set_options(options)
     f1 = formatter(f1, indent)
     if f2 is None:

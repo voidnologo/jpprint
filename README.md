@@ -69,16 +69,16 @@ jpprint(left, right, align_lines=False)
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `use_colors` | bool | `True` | Enable/disable color output |
-| `use_box_chars` | bool | `True` | Use Unicode box-drawing characters (│, ◆) |
 | `align_lines` | bool | `True` | Intelligently align matching lines using difflib |
-| `indent` | int | `4` | JSON indentation spaces |
-| `separator` | str | `\|` | Column separator for equal lines (ignored if `use_box_chars=True`) |
 | `diff_ind` | str | `<>` | Indicator for different lines (ignored if `use_box_chars=True`) |
 | `diff_only` | bool | `False` | Show only lines that differ |
-| `show_ln` | bool | `False` | Display line numbers |
+| `indent` | int | `4` | JSON indentation spaces |
 | `max_width` | int | `None` | Truncate lines to max width |
 | `retr` | bool | `False` | Return output instead of printing |
+| `separator` | str | `\|` | Column separator for equal lines (ignored if `use_box_chars=True`) |
+| `show_ln` | bool | `False` | Display line numbers |
+| `use_box_chars` | bool | `True` | Use Unicode box-drawing characters (│, ◆) |
+| `use_colors` | bool | `True` | Enable/disable color output |
 
 ## Advanced Examples
 

@@ -11,14 +11,14 @@ def format_diff_line(
     left_text: str,
     right_text: str,
     diff_type: DiffType,
-    line_no: int,
-    show_ln: bool,
+    diff_ind: str,
     l1width: int,
     l2width: int,
-    use_colors: bool,
-    use_box_chars: bool,
+    line_no: int,
     separator: str,
-    diff_ind: str,
+    show_ln: bool,
+    use_box_chars: bool,
+    use_colors: bool,
 ) -> str:
     delim = (
         (BOX_SEPARATOR if diff_type == DiffType.EQUAL else BOX_DIFF_INDICATOR)
@@ -84,14 +84,14 @@ def create_output_aligned(
 
     matcher = difflib.SequenceMatcher(None, left_lines, right_lines)
     params = {
-        'line_no': 0,
-        'show_ln': show_ln,
+        'diff_ind': diff_ind,
         'l1width': l1width,
         'l2width': l2width,
-        'use_colors': use_colors,
-        'use_box_chars': use_box_chars,
+        'line_no': 0,
         'separator': separator,
-        'diff_ind': diff_ind,
+        'show_ln': show_ln,
+        'use_box_chars': use_box_chars,
+        'use_colors': use_colors,
     }
 
     for tag, i1, i2, j1, j2 in matcher.get_opcodes():
