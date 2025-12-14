@@ -9,6 +9,7 @@ Side-by-side JSON comparison tool with color-coded diff indicators.
   - 🔴 **Red**: Deletions (content only in left/base)
   - 🟢 **Green**: Additions (content only in right/comparison)
   - 🟡 **Yellow**: Modifications (different content in both)
+- **Intelligent line alignment**: Uses `difflib.SequenceMatcher` to align matching lines
 - **Unicode box-drawing**: Beautiful visual separators using Unicode characters (│ and ◆)
 - **Flexible formatting**: Configurable indent, separators, and display options
 - **Pure Python**: No external dependencies, stdlib only
@@ -113,12 +114,29 @@ jpprint(left, right, use_box_chars=True)
 # Colors enabled by default, box chars make it even better!
 ```
 
+### Intelligent Line Alignment
+
+```python
+# Enabled by default - matching lines align perfectly
+jpprint(left, right)
+
+# Disable if you want simple line-by-line comparison
+jpprint(left, right, align_lines=False)
+```
+
+**How it works:**
+- Uses Python's `difflib.SequenceMatcher` to find matching lines
+- Aligns common lines side-by-side for easy comparison
+- Shows additions, deletions, and modifications clearly
+- Makes diffs much easier to read, especially with nested structures
+
 ## Configuration Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `use_colors` | bool | `True` | Enable/disable color output |
 | `use_box_chars` | bool | `False` | Use Unicode box-drawing characters (│, ◆) |
+| `align_lines` | bool | `True` | Intelligently align matching lines using difflib |
 | `indent` | int | `4` | JSON indentation spaces |
 | `separator` | str | `\|` | Column separator for equal lines (ignored if `use_box_chars=True`) |
 | `diff_ind` | str | `<>` | Indicator for different lines (ignored if `use_box_chars=True`) |
@@ -198,6 +216,9 @@ python examples/example_color_diff.py
 
 # Box-drawing mode examples
 python examples/example_box_mode.py
+
+# Intelligent line alignment examples
+python examples/example_alignment.py
 ```
 
 ## Development

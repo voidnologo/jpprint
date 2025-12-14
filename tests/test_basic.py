@@ -90,7 +90,7 @@ class BasicTests(unittest.TestCase):
         b = {'a': 'b', 'c': 'd'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, use_colors=False)
+            jpprint(a, b, use_colors=False, align_lines=False)
         expected  = '{               |     {            \n'
         expected += '    "a": "b"    <>        "a": "b",\n'
         expected += '}               <>        "c": "d" \n'

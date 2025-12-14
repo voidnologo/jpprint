@@ -38,7 +38,7 @@ class ColorTests(unittest.TestCase):
         # Right has more lines than left
         a = '{"a": "b"}'
         b = '{"a": "b",\n"c": "d"}'
-        output = jpprint(a, b, retr=True)
+        output = jpprint(a, b, retr=True, align_lines=False)
         # Last line should be fillvalue on left, content on right (green)
         last_line = output[-1]
         self.assertIn(ColorCode.GREEN.value, last_line)
@@ -47,7 +47,7 @@ class ColorTests(unittest.TestCase):
         # Left has more lines than right
         a = '{"a": "b",\n"c": "d"}'
         b = '{"a": "b"}'
-        output = jpprint(a, b, retr=True)
+        output = jpprint(a, b, retr=True, align_lines=False)
         # Should have red on left for lines that only exist on left
         has_red = any(ColorCode.RED.value in line for line in output)
         self.assertTrue(has_red)

@@ -12,15 +12,25 @@ def set_options(options: dict) -> tuple:
     retr = options.get('retr', False)
     use_colors = options.get('use_colors', True)
     use_box_chars = options.get('use_box_chars', False)
-    return indent, separator, def_ind, diff_only, max_width, show_ln, retr, use_colors, use_box_chars
+    align_lines = options.get('align_lines', True)
+    return indent, separator, def_ind, diff_only, max_width, show_ln, retr, use_colors, use_box_chars, align_lines
 
 
 def jpprint(f1, f2=None, **options):
-    indent, separator, diff_ind, diff_only, max_width, show_ln, retr, use_colors, use_box_chars = set_options(
-        options
-    )
+    (
+        indent,
+        separator,
+        diff_ind,
+        diff_only,
+        max_width,
+        show_ln,
+        retr,
+        use_colors,
+        use_box_chars,
+        align_lines,
+    ) = set_options(options)
     f1 = formatter(f1, indent)
-    if not f2:
+    if f2 is None:
         print(f1)
         return
     f2 = formatter(f2, indent)
@@ -30,7 +40,9 @@ def jpprint(f1, f2=None, **options):
     l1width = max_len(f1)
     l2width = max_len(f2)
     output = list(
-        create_output(f1, f2, diff_ind, separator, diff_only, show_ln, l1width, l2width, use_colors, use_box_chars)
+        create_output(
+            f1, f2, diff_ind, separator, diff_only, show_ln, l1width, l2width, use_colors, use_box_chars, align_lines
+        )
     )
     if retr:
         return output

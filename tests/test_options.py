@@ -12,7 +12,7 @@ class OptionsTests(unittest.TestCase):
         b = {'b': 'c', 'd': 'e'}
         out = StringIO()
         with redirect_stdout(out):
-            jpprint(a, b, show_ln=True, use_colors=False)
+            jpprint(a, b, show_ln=True, use_colors=False, align_lines=False)
         expected  = '1{               |     {            \n'
         expected += '2    "a": "b"    <>        "b": "c",\n'
         expected += '3}               <>        "d": "e" \n'
