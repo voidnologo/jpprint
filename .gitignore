@@ -1,6 +1,23 @@
+# Python
+__pycache__/
 *.pyc
-__pycache__/*
-dist/*
-jpprint.egg-info
+*.pyo
+.python-version
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
 .DS_Store
-build/*
+
+# Project
+results/
