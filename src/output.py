@@ -26,10 +26,14 @@ def create_output(
         if diff_only and l1 == l2:
             continue
 
-        # Apply colors to each column independently
-        l1_colored = apply_line_color(l1, diff_type, is_left=True, use_colors=use_colors)
-        l2_colored = apply_line_color(l2, diff_type, is_left=False, use_colors=use_colors)
+        # Pad first, then apply colors to maintain alignment
+        # ANSI color codes don't affect visible width but do affect string length
+        l1_padded = '{:{width}}'.format(l1, width=l1width)
+        l2_padded = '{:{width}}'.format(l2, width=l2width)
 
-        yield '{}{:{l1width}}{:^10}{:{l2width}}'.format(
-            line_no if show_ln else '', l1_colored, delim, l2_colored, l1width=l1width, l2width=l2width
+        l1_colored = apply_line_color(l1_padded, diff_type, is_left=True, use_colors=use_colors)
+        l2_colored = apply_line_color(l2_padded, diff_type, is_left=False, use_colors=use_colors)
+
+        yield '{}{}{:^10}{}'.format(
+            line_no if show_ln else '', l1_colored, delim, l2_colored
         )
