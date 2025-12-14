@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Test runner script for jpprint."""
+
 import sys
 import unittest
 
