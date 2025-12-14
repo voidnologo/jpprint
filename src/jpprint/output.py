@@ -84,22 +84,30 @@ def match_lines_by_key(left_block, right_block):
     return matched_pairs, processed_left, processed_right
 
 
+def create_left_to_right_mapping(matched_pairs: list, left_block: list) -> dict:
+    left_to_right = {}
+    for left_line, right_line in matched_pairs:
+        for idx, line in enumerate(left_block):
+            if line == left_line:
+                left_to_right[idx] = right_line
+                break
+    return left_to_right
+
+
 def process_replace_lines(left_lines, right_lines, i1, i2, j1, j2, params):
     left_block = left_lines[i1:i2]
     right_block = right_lines[j1:j2]
 
     matched_pairs, processed_left, processed_right = match_lines_by_key(left_block, right_block)
+    left_to_right = create_left_to_right_mapping(matched_pairs, left_block)
 
-    # Process lines with matching keys (modified)
-    for left_line, right_line in matched_pairs:
+    # Process left lines in order
+    for idx, left_line in enumerate(left_block):
         params['line_no'] += 1
-        yield format_diff_line(left_line, right_line, DiffType.MODIFIED, **params)
-
-    # Show unmatched left lines (deleted)
-    for idx, line in enumerate(left_block):
-        if idx not in processed_left:
-            params['line_no'] += 1
-            yield format_diff_line(line, '', DiffType.DELETED, **params)
+        if idx in left_to_right:
+            yield format_diff_line(left_line, left_to_right[idx], DiffType.MODIFIED, **params)
+        else:
+            yield format_diff_line(left_line, '', DiffType.DELETED, **params)
 
     # Show unmatched right lines (added)
     for idx, line in enumerate(right_block):
